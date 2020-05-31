@@ -28,6 +28,7 @@ import appReducers from './reducer/index';
 import {createStore,applyMiddleware } from 'redux';
 import saga from './reducer/saga'
 import createSagaMiddleware from 'redux-saga';
+import JsonType from './Model/JsonType'
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
   appReducers, /* preloadedState, */
@@ -35,6 +36,7 @@ const store = createStore(
 );
 sagaMiddleware.run(saga)
 const Stack = createStackNavigator();
+const optionStack : JsonType = {headerLeft : null};
 const App: () => React$Node = () => {
   return (
     <Provider store={store}>
@@ -45,7 +47,7 @@ const App: () => React$Node = () => {
             component={Login}
             options={{ title: 'Welcome' }}
           />
-          <Stack.Screen name="Main" component={Main} options={{[headerLeft : any | string] : null}} />
+          <Stack.Screen name="Main" component={Main} options={optionStack} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
