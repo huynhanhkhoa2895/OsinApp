@@ -15,20 +15,40 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-import Home from './component/Home'
 import {
-  Header,
-  LearnMoreLinks,
   Colors,
-  DebugInstructions,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-
+import Login from './component/Login'
+import Main from './component/Main'
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Provider } from 'react-redux';
+import appReducers from './reducer/index';
+import {createStore,applyMiddleware } from 'redux';
+import saga from './reducer/saga'
+import createSagaMiddleware from 'redux-saga';
+const sagaMiddleware = createSagaMiddleware()
+const store = createStore(
+  appReducers, /* preloadedState, */
+  applyMiddleware(sagaMiddleware)
+);
+sagaMiddleware.run(saga)
+const Stack = createStackNavigator();
 const App: () => React$Node = () => {
   return (
-    <ScrollView>
-      <Home name="khoa" />
-    </ScrollView>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={Login}
+            options={{ title: 'Welcome' }}
+          />
+          <Stack.Screen name="Main" component={Main} options={{[headerLeft : any | string] : null}} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 

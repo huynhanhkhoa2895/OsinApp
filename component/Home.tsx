@@ -1,5 +1,6 @@
 import React,{useState,useEffect,useMemo} from 'react';
-import {isEmpty} from "lodash"
+import {connect} from 'react-redux'
+import {_userCall} from '../reducer/actions'
 import {
     SafeAreaView,
     StyleSheet,
@@ -34,7 +35,6 @@ function Home(props : any){
     //     setRegion(region)
     // }
     function locateCurrentPosition(){
-        console.log("locateCurrentPosition",_location)
         let test = {
             latitude: 37.78825,
             longitude: -122.4324,
@@ -47,21 +47,8 @@ function Home(props : any){
         if(_change){
             renderMap()
         }
-        
-        // renderMap()
-        // Geolocation.getCurrentPosition((position)=>{
-        //     // setLatitude(position.coords.latitude)
-        //     // setLongitude(position.coords.longitude)
-        //     // setMarker({name : 1,latitude: position.coords.latitude,longitude: position.coords.longitude})
-        //     renderMap(position.coords.latitude,position.coords.longitude,{name : 1,latitude: position.coords.latitude,longitude: position.coords.longitude})
-        //     // latitude = position.coords.latitude
-        //     // longitude = position.coords.longitude
-        //     // console.log(latitude,longitude)
-        // })
-        // renderMap()
     },[_change])
     function renderMap(){
-        console.log("renderMap")
         Geolocation.getCurrentPosition((position)=>{
             const {latitude,longitude} = position.coords
             // setLatitude(position.coords.latitude)
@@ -91,23 +78,15 @@ function Home(props : any){
         })
         
     }
+    function callUser(){
+        props.call();
+    }
     return(
         <View style={styles.view}>
             <StatusBar hidden={true} />
-            <Text>Home {props.name} </Text>
+            <Text>Home {props.name} {props.appReducer.stt}</Text>
             {_map}
-            {/* <MapView
-                provider={PROVIDER_GOOGLE}
-                zoomEnabled={true}
-                initialRegion={_location}
-                style={{height : 300,width : "100%"}}
-            >
-                <Marker 
-                    coordinate = {_marker}
-                    title = "Sanfasico"
-                />
-            </MapView> */}
-            {/* {renderMap()} */}
+            <Button title="ĐANG TEST" onPress={()=>callUser()} />
         </View>
     )
 }
@@ -116,4 +95,16 @@ const styles = StyleSheet.create({
         padding: 30
     }
 })
-export default Home;
+const mapStateToProps = (state : any) => {
+    return {
+        appReducer : state.appReducer
+    }
+  }
+const mapDispatchToProps = (dispatch : any) => {
+    return {
+        call : () =>{
+            dispatch(_userCall());
+        },
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
