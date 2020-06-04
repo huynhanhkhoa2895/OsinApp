@@ -1,30 +1,42 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {View,Text,ScrollView} from 'react-native';
-import Home from './Home'
-import Header from './Header'
-import Footer from './Footer'
+import Home from './Home/Home'
+import About from './About/About'
+import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
+import Icon from 'react-native-vector-icons/Ionicons'
 function Main(props : any){
     return(
-        <View style={{flex: 1}}>
-            <Header />        
+        <View style={{flex: 1,alignItems: "center",justifyContent: "center"}}>
+            {/* <Header />        
             <ScrollView style={{flex: .8}}>
-            <Home name="khoa" />
+                <Home name="khoa" />
             </ScrollView>
-            <Footer />
-      </View>
+            <Footer /> */}
+        </View>
     )
 }
-const mapStateToProps = (state : any) => {
-    return {
-        appReducer : state.appReducer
-    }
-  }
-const mapDispatchToProps = (dispatch : any) => {
-    return {
-        call : () =>{
-            // dispatch(_userCall());
-        },
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default createMaterialBottomTabNavigator({
+    Home : {
+        screen : Home,
+        navigationOptions:{
+            tabBarLabel: 'Home',
+            tabBarIcon: ()=>{
+                <Icon name="ios-home" size={24} />
+            }
+        }
+    },
+    About : {
+        screen : About,
+        navigationOptions:{
+            tabBarLabel: 'Home',
+            tabBarIcon: ()=>{
+                <Icon name="ios-home" size={24} />
+            }
+        }
+    },
+},{
+    initialRouteName: 'Home',
+    order: ['Home','About'],
+})
+// export default Main
+// export default connect(mapStateToProps, mapDispatchToProps)(Main);

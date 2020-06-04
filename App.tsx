@@ -21,8 +21,7 @@ import {
 import Login from './component/Login'
 import Main from './component/Main'
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {createSwitchNavigator,createAppContainer} from 'react-navigation'
 import { Provider } from 'react-redux';
 import appReducers from './reducer/index';
 import {createStore,applyMiddleware } from 'redux';
@@ -35,12 +34,18 @@ const store = createStore(
   applyMiddleware(sagaMiddleware)
 );
 sagaMiddleware.run(saga)
-const Stack = createStackNavigator();
-const optionStack : JsonType = {headerLeft : null};
+// const Stack = createStackNavigator();
+// const optionStack : JsonType = {headerLeft : null};
+const AppSwitchNavigator = createSwitchNavigator({
+  Login : {screen : Login},
+  Main : {screen : Main},
+})
+const AppContainer = createAppContainer(AppSwitchNavigator);
 const App: () => React$Node = () => {
   return (
     <Provider store={store}>
-      <NavigationContainer>
+      <AppContainer />
+      {/* <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
             name="Home"
@@ -49,7 +54,7 @@ const App: () => React$Node = () => {
           />
           <Stack.Screen name="Main" component={Main} options={optionStack} />
         </Stack.Navigator>
-      </NavigationContainer>
+      </NavigationContainer> */}
     </Provider>
   );
 };
@@ -94,3 +99,5 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
+

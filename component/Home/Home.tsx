@@ -1,6 +1,6 @@
 import React,{useState,useEffect,useMemo} from 'react';
 import {connect} from 'react-redux'
-import {_userCall} from '../reducer/actions'
+import {_userCall} from '../../reducer/actions'
 import {
     SafeAreaView,
     StyleSheet,
