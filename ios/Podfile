@@ -107,6 +107,8 @@ target 'OsinApp' do
   # pod 'Permission-SpeechRecognition', :path => "#{permissions_path}/SpeechRecognition.podspec"
   # pod 'Permission-StoreKit', :path => "#{permissions_path}/StoreKit.podspec"
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'OsinAppTests' do
     inherit! :complete
     # Pods for testing

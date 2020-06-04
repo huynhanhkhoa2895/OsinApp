@@ -19,7 +19,7 @@ import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 import Login from './component/Login'
-import Main from './component/Main'
+import {AppCreateDrawerNavigator} from './component/Main'
 import 'react-native-gesture-handler';
 import {createSwitchNavigator,createAppContainer} from 'react-navigation'
 import { Provider } from 'react-redux';
@@ -38,7 +38,7 @@ sagaMiddleware.run(saga)
 // const optionStack : JsonType = {headerLeft : null};
 const AppSwitchNavigator = createSwitchNavigator({
   Login : {screen : Login},
-  Main : {screen : Main},
+  Main : {screen : AppCreateDrawerNavigator},
 })
 const AppContainer = createAppContainer(AppSwitchNavigator);
 const App: () => React$Node = () => {

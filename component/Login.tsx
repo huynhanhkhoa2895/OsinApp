@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {View,Text,Button} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5'
 import Home from './Home/Home'
 import Header from './Header'
 import Footer from './Footer'
@@ -11,7 +12,7 @@ function Login(props : any){
     }
     return(
         <View style={{flex: 1}}>
-            <Text>LOGIN VIEW</Text>
+            <Text>LOGIN VIEW <Icon size={26} name="user" /> </Text>
             <Button onPress={()=>handleLogin()} title="Đăng nhập" />
         </View>
     )
